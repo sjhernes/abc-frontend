@@ -398,7 +398,7 @@ body {
   }
   #news article:nth-child(2),
   #news article:nth-child(3) {
-    width: 50%;
+    width: 49%;
   }
   #news article:nth-child(4) {
     width: 460px;
@@ -435,10 +435,5 @@ body {
   }
   #mainheader .category a {
     padding: 5px;
-  }
-}
-@media only screen and (max-width: 678px) {
-  #page {
-    width: 480px;
   }
 }

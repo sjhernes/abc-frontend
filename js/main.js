@@ -15,12 +15,10 @@
 	
 	
 		if (img.width/img.height < 1.48) {
-			//console.log(img.height + " - " + img.width);
 			img.classList.add("port");
 		} else {
 			img.classList.add("land");
 		}
-		console.log(img.width/img.height);
 
 		if (bottext) {
 			imgbottom.style.backgroundColor = cat[elem.Category-1].Color;
@@ -78,10 +76,9 @@
 		       	var data = JSON.parse(httpRequest.responseText),
 		       		head = document.getElementById("categories"),
 		       		b = document.getElementById("news"),
-		       		bil = document.getElementById("bil"),
-		       		bol = document.getElementById("bol"),
-		       		cat1count = 0,
-		       		cat2count = 0;
+		       		curcatelem,
+		       		curcat = null,
+		       		count = 0;
 		       	art = data.Articles;
 		       	cat = data.Categories;
 
@@ -97,7 +94,6 @@
 		       		div.appendChild(a);
 		       		head.appendChild(div);
 
-		       		console.log(cat[i]);
 		       	}
 
 
@@ -108,11 +104,36 @@
 		       	for (var i = 0; i < 6; i++) {
 		       		createArticle(art[i], b, cat, true);
 		       	}
+		       	art.sort(function(a,b){
+		       		return a.Category - b.Category;
+		       	});
+
 		       	// it is still sorted by date, so newest first
 		       	for (var i = 0; i < art.length; i++) {
-					if ((art[i].Category == 1 && cat1count++ < 4) || (art[i].Category == 2 && cat2count++ < 4)) {
-						createArticle(art[i], art[i].Category == 1 ? bil : bol, cat, false).classList.add("category-article");
-			       		console.log(art[i]);
+		       		if (curcat != art[i].Category) {
+		       			curcat = art[i].Category;
+		       			var section = document.createElement("section"),
+		       				header = document.createElement("header"),
+		       				curcatelem = document.createElement("div");
+
+		       			section.classList.add("clearfix");
+		       			section.classList.add("category");
+		       			header.classList.add("cat-"+curcat);
+		       			header.classList.add("cathead");
+
+		       			header.style.borderBottom = "1px solid "+cat[curcat-1].Color;
+		       			header.innerHTML = cat[curcat-1].Title.toUpperCase() + "<span class='mer'>mer</span>";
+
+		       			curcatelem.classList.add("clearfix");
+		       			curcatelem.classList.add("catspool");
+
+		       			section.appendChild(header);
+		       			section.appendChild(curcatelem);
+
+		       			document.getElementById("page").appendChild(section);
+		       		}
+					if (curcatelem.children.length < 4) {
+						createArticle(art[i], curcatelem, cat, false).classList.add("category-article");
 					}
 		       	}
 

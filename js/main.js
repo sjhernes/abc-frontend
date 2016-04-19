@@ -11,6 +11,7 @@
 		imgbase.classList.add("artimg");
 		img.src = "images/"+elem.Image;
 		imgbase.appendChild(img);
+		img.alt = elem.Title;
 	
 	
 		if (img.width/img.height < 1.48) {

@@ -1,0 +1,16 @@
+{
+  "name": "hvordan",
+  "version": "1.0.0",
+  "description": "Frontendtest",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.0.5",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-gzip": "^1.2.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-concat": "^2.6.0"
+  },
+  "author": "Sjur Hernes",
+  "license": "ISC"
+}

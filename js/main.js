@@ -1,5 +1,7 @@
 (function(){
 
+	// Creates all articles
+
 	function createArticle(elem, container, cat, bottext) {
 		var article = document.createElement("article"),
 			imgbase = document.createElement("div"),
@@ -51,6 +53,9 @@
 			searchresults,
 			results = document.getElementById("results");
 	
+
+		// searchfunction
+
 		search.addEventListener("keyup", function(){
 			searchresults = [];
 			var re = new RegExp(".*"+search.value+".*", 'i')
@@ -68,6 +73,9 @@
 			results.style.display = "none";
 		});
 
+
+		// Get json data and fill the html
+
 	
 		var httpRequest = new XMLHttpRequest();
 		
@@ -82,6 +90,7 @@
 		       	art = data.Articles;
 		       	cat = data.Categories;
 
+		       	// set up categories in header
 
 		       	for (var i = 0; i < cat.length; i++) {
 		       		var div = document.createElement("div"),
@@ -97,6 +106,7 @@
 		       	}
 
 
+		       	// sort newest first
 		       	art.sort(function(a,b){
 		       		return b.Date - a.Date;
 		       	});
@@ -104,11 +114,14 @@
 		       	for (var i = 0; i < 6; i++) {
 		       		createArticle(art[i], b, cat, true);
 		       	}
+
+		       	// sort newest first into categories
 		       	art.sort(function(a,b){
 		       		return a.Category - b.Category;
 		       	});
 
-		       	// it is still sorted by date, so newest first
+
+		       	// creates the newst first based on category
 		       	for (var i = 0; i < art.length; i++) {
 		       		if (curcat != art[i].Category) {
 		       			curcat = art[i].Category;
@@ -137,10 +150,12 @@
 					}
 		       	}
 
-
+		       	// sorts to most viewed
 		       	art.sort(function(a,b){
 		       		return b.Views - a.Views;
 		       	});
+
+		       	// fills out the most viewed sidebar
 		       	b = document.getElementById("mostread");
 				for (var i = 0; i < 5; i++) {
 		       		createArticle(art[i], b, cat, true).classList.add("aside-article");

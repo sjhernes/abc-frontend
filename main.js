@@ -15,12 +15,15 @@
 		imgbase.appendChild(img);
 		img.alt = elem.Title;
 	
-	
-		if (img.width/img.height < 1.48) {
-			img.classList.add("port");
-		} else {
-			img.classList.add("land");
-		}
+
+		// so we know we have the image downloaded
+		img.addEventListener("load", function() {
+			if (img.width/img.height < 1.48) {
+				img.classList.add("port");
+			} else {
+				img.classList.add("land");
+			}
+		});
 
 		if (bottext) {
 			imgbottom.style.backgroundColor = cat[elem.Category-1].Color;
